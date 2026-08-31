@@ -1,20 +1,13 @@
-{
-  "schemaVersion": 1,
-  "id": "respawn_system",
-  "version": "${version}",
-  "name": "Respawn System",
-  "description": "Лорная Система для модовой сборки: профили, темы и рамки, общий и системный чат, личные сообщения, метки, поддержка и администрирование.",
-  "authors": ["okeygoogle"],
-  "license": "All-Rights-Reserved",
-  "environment": "*",
-  "entrypoints": {
-    "main": ["ru.okeygoogle.respawnsystem.RespawnSystemMod"],
-    "client": ["ru.okeygoogle.respawnsystem.client.RespawnSystemClient"]
-  },
-  "depends": {
-    "fabricloader": ">=0.19.4",
-    "minecraft": "~26.2",
-    "java": ">=25",
-    "fabric-api": ">=0.158.0+26.2"
-  }
+package ru.okeygoogle.respawnsystem.client;
+
+import java.util.UUID;
+
+public record DirectMessage(
+        long time,
+        UUID sender,
+        String senderName,
+        UUID receiver,
+        String receiverName,
+        String message
+) {
 }
