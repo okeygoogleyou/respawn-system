@@ -1,8 +1,0 @@
-{
-  "key.category.respawn_system.system": "Respawn — Система",
-  "key.respawn_system.open": "Открыть Систему",
-  "sound.respawn_system.click": "Система: интерфейс",
-  "sound.respawn_system.confirm": "Система: подтверждение",
-  "sound.respawn_system.error": "Система: ошибка",
-  "sound.respawn_system.notification": "Система: уведомление"
-}
