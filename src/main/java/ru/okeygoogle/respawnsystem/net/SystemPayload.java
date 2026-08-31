@@ -1,0 +1,36 @@
+package ru.okeygoogle.respawnsystem.net;
+
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.Identifier;
+
+public record SystemPayload(byte[] data) implements CustomPacketPayload {
+    private static final int MAX_BYTES = 2 * 1024 * 1024;
+    public static final Type<SystemPayload> TYPE = new Type<>(Identifier.fromNamespaceAndPath("respawn_system", "system"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, SystemPayload> CODEC = new StreamCodec<>() {
+        @Override
+        public SystemPayload decode(RegistryFriendlyByteBuf buf) {
+            int size = buf.readableBytes();
+            if (size < 0 || size > MAX_BYTES) {
+                throw new IllegalArgumentException("Respawn System payload exceeds " + MAX_BYTES + " bytes");
+            }
+            byte[] bytes = new byte[size];
+            buf.readBytes(bytes);
+            return new SystemPayload(bytes);
+        }
+
+        @Override
+        public void encode(RegistryFriendlyByteBuf buf, SystemPayload payload) {
+            if (payload.data().length > MAX_BYTES) {
+                throw new IllegalArgumentException("Respawn System payload exceeds " + MAX_BYTES + " bytes");
+            }
+            buf.writeBytes(payload.data());
+        }
+    };
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
+    }
+}

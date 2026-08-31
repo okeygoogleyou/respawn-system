@@ -1,0 +1,12 @@
+RESPAWN SYSTEM — ЗАГРУЗКА В GITHUB
+
+1. Распакуй этот ZIP в обычную папку.
+2. Открой https://github.com/okeygoogleyou/respawn-system
+3. Нажми "uploading an existing file" (или Add file -> Upload files).
+4. Выдели ВСЁ содержимое распакованной папки, включая папки .github и src.
+5. Перетащи на страницу GitHub.
+6. Внизу нажми "Commit changes".
+7. Напиши в ChatGPT: "загрузила".
+
+После коммита GitHub Actions автоматически запустит сборку Java 25 / Gradle 9.5.1.
+Если сборка упадёт, ChatGPT сможет прочитать публичные логи и исправить код.
