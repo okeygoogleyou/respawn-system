@@ -3,21 +3,53 @@ package ru.okeygoogle.respawnsystem.client.ui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.sounds.SoundEvent;
-import ru.okeygoogle.respawnsystem.RespawnSounds;
 import net.minecraft.sounds.SoundEvents;
+import ru.okeygoogle.respawnsystem.RespawnSounds;
 
 public final class SoundFx {
-    private static final boolean CUSTOM = SoundFx.class.getResource("/assets/respawn_system/sounds/ui/click.ogg") != null;
+
+    private static final boolean CUSTOM =
+            SoundFx.class.getResource(
+                    "/assets/respawn_system/sounds/ui/click.ogg"
+            ) != null;
+
     private SoundFx() {}
 
-    public static void click() { play(RespawnSounds.CLICK, 0.96F); }
-    public static void confirm() { play(RespawnSounds.CONFIRM, 1.0F); }
-    public static void error() { play(RespawnSounds.ERROR, 0.9F); }
-    public static void notification() { play(RespawnSounds.NOTIFICATION, 1.0F); }
+    public static void click() {
+        play(RespawnSounds.CLICK, 0.96F);
+    }
 
-    private static void play(SoundEvent custom, float pitch) {
-        if (!UiConfig.INSTANCE.playUiSounds) return;
-        SoundEvent event = CUSTOM ? custom : SoundEvents.UI_BUTTON_CLICK;
-        Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(event, pitch));
+    public static void confirm() {
+        play(RespawnSounds.CONFIRM, 1.0F);
+    }
+
+    public static void error() {
+        play(RespawnSounds.ERROR, 0.9F);
+    }
+
+    public static void notification() {
+        play(RespawnSounds.NOTIFICATION, 1.0F);
+    }
+
+    private static void play(
+            SoundEvent custom,
+            float pitch
+    ) {
+        if (!UiConfig.INSTANCE.playUiSounds) {
+            return;
+        }
+
+        SoundEvent event = CUSTOM
+                ? custom
+                : SoundEvents.UI_BUTTON_CLICK.value();
+
+        Minecraft.getInstance()
+                .getSoundManager()
+                .play(
+                        SimpleSoundInstance.forUI(
+                                event,
+                                pitch
+                        )
+                );
     }
 }
