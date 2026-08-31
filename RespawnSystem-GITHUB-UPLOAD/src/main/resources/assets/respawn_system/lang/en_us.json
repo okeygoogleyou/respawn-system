@@ -1,0 +1,8 @@
+{
+  "key.category.respawn_system.system": "Respawn — System",
+  "key.respawn_system.open": "Open System",
+  "sound.respawn_system.click": "System UI",
+  "sound.respawn_system.confirm": "System confirmation",
+  "sound.respawn_system.error": "System error",
+  "sound.respawn_system.notification": "System notification"
+}

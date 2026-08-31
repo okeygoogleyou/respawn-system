@@ -1,0 +1,6 @@
+{
+  "ui.click": {"subtitle":"sound.respawn_system.click","sounds":["respawn_system:ui/click"]},
+  "ui.confirm": {"subtitle":"sound.respawn_system.confirm","sounds":["respawn_system:ui/confirm"]},
+  "ui.error": {"subtitle":"sound.respawn_system.error","sounds":["respawn_system:ui/error"]},
+  "ui.notification": {"subtitle":"sound.respawn_system.notification","sounds":["respawn_system:ui/notification"]}
+}
