@@ -473,6 +473,13 @@ public final class SystemScreen extends Screen {
         g.fill(contentX - 8, top + 55, left + panelW - 10, top + panelH - 12, theme.panel());
         g.outline(contentX - 8, top + 55, contentW + 8, panelH - 67, withAccent(theme, 0x48));
         drawFrame(g, contentX - 8, top + 55, contentW + 8, panelH - 67, withAccent(theme, 0xA0), currentFrame());
+
+        // Минималистичная лисья подпись темы: тонкая полоса вместо
+        // тяжёлых декоративных панелей.
+        if (isRedFoxTheme(theme)) {
+            g.fill(contentX + 8, top + 58, contentX + 86, top + 60, withAccent(theme, 0xD0));
+            g.fill(contentX + 88, top + 58, contentX + 112, top + 59, withAccent(theme, 0x55));
+        }
     }
 
     @Override
@@ -481,13 +488,22 @@ public final class SystemScreen extends Screen {
         int accent = withAccent(theme, 0xFF);
 
         g.text(font, Component.literal("◈ " + UiConfig.INSTANCE.brandText), left + 13, top + 15, accent, false);
-        g.text(font, Component.literal("OKG // CORE 0.4"), left + 13, top + 29, theme.muted(), false);
+        g.text(font, Component.literal("OKG // CORE 0.4.1"), left + 13, top + 29, theme.muted(), false);
         g.text(font, Component.literal("СОСТОЯНИЕ: " + (state.connected() ? "ONLINE" : "OFFLINE")), left + panelW - 150, top + 15,
                 state.connected() ? 0xFF67E69B : theme.danger(), false);
         g.text(font, Component.literal(UiConfig.INSTANCE.rgbCycle ? "RGB LINK ACTIVE" : "STATIC LINK"), left + panelW - 150, top + 29,
                 UiConfig.INSTANCE.rgbCycle ? accent : theme.muted(), false);
         g.text(font, Component.literal("ДОСТУП: " + roleName(state.role())), left + 13, top + panelH - 22, theme.muted(), false);
         drawMascot(g, left + sideW - 42, top + 12, currentDecor(), accent, theme.text());
+
+        // Красная лисья тема: один спокойный пиксельный маскот в свободной
+        // нижней части боковой панели. Он рисуется отдельно от PlayerFaceWidget,
+        // поэтому цвет темы/RGB никогда не тонирует аватар игрока.
+        if (isRedFoxTheme(theme)) {
+            FoxSprite.draw(g, left + 48, top + panelH - 116, 2);
+            FoxSprite.drawPaw(g, left + 22, top + panelH - 92, 1, accent);
+            FoxSprite.drawPaw(g, left + 112, top + panelH - 138, 1, withAccent(theme, 0x90));
+        }
 
         switch (tab) {
             case PROFILE -> renderProfile(g, theme);
@@ -654,7 +670,12 @@ public final class SystemScreen extends Screen {
         g.text(font, Component.literal("ДЕКОР — отдельная пиксельная иконка, не связана с рамкой"), contentX + 20, top + 185, theme.muted(), false);
         g.text(font, Component.literal("АКЦЕНТ HEX"), contentX + 20, top + 210, theme.muted(), false);
         g.text(font, Component.literal("RGB меняет только рамки, линии, заголовки и декор. Аватар игрока не тонируется."), contentX + 20, top + 252, theme.text(), false);
-        drawMascot(g, contentX + contentW - 95, top + 142, currentDecor(), withAccent(theme, 0xFF), theme.text());
+        if (isRedFoxTheme(theme)) {
+            FoxSprite.draw(g, contentX + contentW - 118, top + 150, 2);
+            g.text(font, Component.literal("КРАСНАЯ ЛИСА"), contentX + contentW - 126, top + 222, withAccent(theme, 0xFF), false);
+        } else {
+            drawMascot(g, contentX + contentW - 95, top + 142, currentDecor(), withAccent(theme, 0xFF), theme.text());
+        }
     }
 
     private void renderSupport(GuiGraphicsExtractor g, Theme theme, boolean staff) {
@@ -744,10 +765,9 @@ public final class SystemScreen extends Screen {
     }
 
     private static void drawFox(GuiGraphicsExtractor g, int x, int y, int c, int light) {
-        g.fill(x + 4, y, x + 10, y + 6, c); g.fill(x + 22, y, x + 28, y + 6, c);
-        g.fill(x + 2, y + 5, x + 30, y + 22, c); g.fill(x + 7, y + 16, x + 25, y + 27, light);
-        g.fill(x + 8, y + 10, x + 11, y + 13, 0xFF111111); g.fill(x + 21, y + 10, x + 24, y + 13, 0xFF111111);
-        g.fill(x + 15, y + 20, x + 18, y + 23, 0xFF111111);
+        // Реальный пиксельный спрайт красной лисы из утверждённого визуального варианта.
+        // Цвета спрайта фиксированные и не зависят от RGB.
+        FoxSprite.draw(g, x + 2, y, 1);
     }
 
     private static void drawShulker(GuiGraphicsExtractor g, int x, int y, int c, int light) {
@@ -802,6 +822,10 @@ public final class SystemScreen extends Screen {
         int gi = Math.min(255, Math.max(0, Math.round(gg * 255)));
         int bi = Math.min(255, Math.max(0, Math.round(b * 255)));
         return (ri << 16) | (gi << 8) | bi;
+    }
+
+    private static boolean isRedFoxTheme(Theme theme) {
+        return theme != null && "FOX_RED".equalsIgnoreCase(theme.id());
     }
 
     private String currentFrame() {

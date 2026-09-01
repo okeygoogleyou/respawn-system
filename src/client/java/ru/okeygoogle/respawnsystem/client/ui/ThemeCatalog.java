@@ -11,7 +11,7 @@ public final class ThemeCatalog {
             new Theme("VIOLET", "Фиолетовая", 0xFFC995FF, 0xF2080710, 0xF2140E1D, 0xF21C1429, 0xFFF7F0FF, 0xFFA594B5, 0xFFFF6D9B),
             new Theme("MONO", "Монохром", 0xFFE8EEF2, 0xF207080A, 0xF2111316, 0xF2191C20, 0xFFF5F5F5, 0xFF969B9F, 0xFFFF6B6B),
 
-            new Theme("FOX_RED", "Лиса — красная", 0xFFFF4D4D, 0xF20D0708, 0xF2190E10, 0xF2251417, 0xFFFFF2EE, 0xFFBC928C, 0xFFFF6262),
+            new Theme("FOX_RED", "Лиса — красная · минимал", 0xFFFF5B32, 0xF2070607, 0xF20D0A0A, 0xF2140E0D, 0xFFFFF5EF, 0xFFBCA093, 0xFFFF5966),
             new Theme("FOX_WHITE", "Лиса — белая", 0xFFF4F1E8, 0xF2080A0C, 0xF214171A, 0xF21C2125, 0xFFFFFFFF, 0xFFAAB0B5, 0xFFFF6B6B),
             new Theme("FOX_ORANGE", "Лиса — рыжая", 0xFFFF9A3D, 0xF20E0905, 0xF21A1109, 0xF226180C, 0xFFFFF5E9, 0xFFC1A186, 0xFFFF6A55),
 
